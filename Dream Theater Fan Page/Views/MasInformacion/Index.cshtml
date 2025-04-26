@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Más Información";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5 text-white">
+    <h1 class="text-warning text-center">Más Información sobre el Creador</h1>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-warning">Acerca del Creador</h5>
+            <p class="card-text"><strong>Juan Bautista Xifro:</strong> Soy un apasionado de Dream Theater y del metal progresivo. Este sitio web es una manera de compartir mi pasión con otros fans.</p>
+            <p class="card-text">Para contactarme, puedes enviar un mensaje usando el formulario de abajo.</p>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-white mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-warning">Envía un Mensaje al Creador</h5>
+            <form asp-action="EnviarMensaje" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Tu Nombre:</label>
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Tu Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required />
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Mensaje:</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>

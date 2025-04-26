@@ -7,4 +7,8 @@
     <RootNamespace>Dream_Theater_Fan_Page</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\discografia\" />
+  </ItemGroup>
+
 </Project>

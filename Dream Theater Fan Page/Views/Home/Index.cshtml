@@ -1,8 +1,39 @@
-﻿@{
+﻿@* Vista Index.cshtml *@
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5 text-dark">
+    <h1 class="text-warning text-center">Bienvenido al Fansite de Dream Theater</h1>
+    <p class="lead">Explora la discografía, los shows en vivo, y más información sobre Dream Theater, una de las bandas más icónicas del metal progresivo.</p>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Discografía</h5>
+                    <p class="card-text">Descubre todos los álbumes de estudio y en vivo.</p>
+                    <a asp-controller="Home" asp-action="Discografia" class="btn btn-warning">Ver Discografía</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Shows</h5>
+                    <p class="card-text">Revive los conciertos y giras más memorables.</p>
+                    <a href="/Shows" class="btn btn-warning">Ver Shows</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Más Información</h5>
+                    <p class="card-text">Conoce al creador del sitio y contáctalo.</p>
+                    <a href="/MasInformacion" class="btn btn-warning">Ir a Más Información</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

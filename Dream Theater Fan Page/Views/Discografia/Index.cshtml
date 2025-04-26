@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Discografía";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5 text-white">
+    <h1 class="text-warning text-center">Discografía de Dream Theater</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        @foreach (var album in ViewBag.Albums)
+        {
+            <div class="col">
+                <div class="card h-100 bg-dark text-white">
+                    <img src="@album.Cover" class="card-img-top" alt="@album.Title">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning">@album.Title</h5>
+                        <p class="card-text">@album.Description</p>
+                        <audio controls class="w-100 mt-2">
+                            <source src="@album.AudioSample" type="audio/mpeg" />
+                            Tu navegador no soporta audio HTML5.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
