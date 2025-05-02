@@ -18,5 +18,30 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('/img/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+}
+
+.card, .alert, .navbar, .footer {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+a {
+    color: #f0c040;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.toast-body {
+    color: #b7af13;
+}
+.custom-toast {
+    background-color: #4d4a4a;
 }
