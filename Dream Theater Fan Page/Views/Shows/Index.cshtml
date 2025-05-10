@@ -2,27 +2,110 @@
     ViewData["Title"] = "Shows";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!-- <partial name="_Shows/_ShowsModel" /> Preguntar porque no me funciona -->
 
-<div class="container py-5 text-white">
-    <h1 class="text-warning text-center">Shows en Vivo de Dream Theater</h1>
-    <p class="lead text-center">Revive los conciertos y giras más memorables de la banda.</p>
+@await Html.PartialAsync("_ShowsModal")
 
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card bg-dark text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-warning">Metropolis 2000 Tour</h5>
-                    <p class="card-text">La gira que acompañó el lanzamiento de "Scenes from a Memory", considerada una de las mejores performances en vivo de la banda.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card bg-dark text-white mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-warning">Distance Over Time Tour</h5>
-                    <p class="card-text">Una de las giras más recientes, combinando clásicos con nuevo material del álbum "Distance Over Time".</p>
-                </div>
+<!-- Cards de los tours -->
+<div class="row mt-5 justify-content-center">
+    <div class="col-md-5 m-3">
+        <div class="card bg-dark text-light h-100">
+            <div class="card-body">
+                <h5 class="card-title text-warning">Metropolis 2000 Tour</h5>
+                <p class="card-text">La gira de Scenes from a Memory, considerada una de las mejores performances de la banda.</p>
+                <button class="btn btn-outline-warning"
+                        onclick="mostrarModal(
+                            'Metropolis 2000 Tour',
+                            'La gira basada en el álbum “Scenes from a Memory”, con los siguientes shows icónicos:',
+                            ['Live Scenes from New York', 'Buenos Aires 2000', 'Metropolis Pt. 2'])">
+                    Ver Detalles
+                </button>
             </div>
         </div>
     </div>
+
+    <div class="col-md-5 m-3">
+        <div class="card bg-dark text-light h-100">
+            <div class="card-body">
+                <h5 class="card-title text-warning">Train of Thought Tour 2004</h5>
+                <p class="card-text">La gira de Train of Thought Tour, Dream Theater en su prime, demostrando una proeza técnica.</p>
+                <button class="btn btn-outline-warning"
+                        onclick="mostrarModal(
+                            'Train of Thought Tour 2004',
+                            'La gira Train of Thought Tour fue la gira mundial de 2004 de Dream Theater, realizada para promocionar su séptimo álbum de estudio del mismo nombre. La gira adoptó el ya familiar formato An Evening With Dream Theater, ofreciendo conciertos extensos con un sorprendente enfoque en la variación de listas de canciones y la inclusión de covers. Shows destacados icónicos:',
+                            ['Manchester, Inglaterra', 'Monterrey, México', 'Budokan, Japon'])">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 m-3">
+        <div class="card bg-dark text-light h-100">
+            <div class="card-body">
+                <h5 class="card-title text-warning">Distance Over Time Tour</h5>
+                <p class="card-text">Una de las giras más recientes, combinando clásicos con nuevo material del álbum Distance Over Time.</p>
+                <button class="btn btn-outline-warning"
+                        onclick="mostrarModal(
+                            'Distance Over Time Tour',
+                            'La Distance Over Time Tour fue una gira realizada en apoyo al decimocuarto álbum de estudio de la banda, Distance Over Time. También celebró el vigésimo aniversario de Scenes From a Memory. Por ello, la banda interpretó ese álbum en su totalidad, además de canciones de Distance Over Time. Algunos shows destacados:',
+                            ['London Palladium 2019', 'Los Angeles 2020', 'Wacken Open Air 2020'])">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 m-3">
+        <div class="card bg-dark text-light h-100">
+            <div class="card-body">
+                <h5 class="card-title text-warning">40th Anniversary Tour</h5>
+                <p class="card-text">Actual gira en curso de la banda. Festeja sus 40 años y el regreso del baterista Mike Portnoy.</p>
+                <button class="btn btn-outline-warning"
+                        onclick="mostrarModal(
+                            '40th Anniversary Tour',
+                            'La 40th Anniversary Tour es una gira de conciertos en curso de Dream Theater, celebrando los 40 años desde su formación. La gira se está llevando a cabo desde el 20 de octubre de 2024 hasta el 29 de julio de 2025. Esta es la primera gira de la banda con Mike Portnoy en la batería desde su salida de Dream Theater tras el lanzamiento de Black Clouds & Silver Linings en 2009. Algunos shows destacados:',
+                            ['Movistar Arena, Buenos Aires', 'The 02 Arena, London', 'Adidas Arena, Paris'])">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Botón de suscripción -->
+<div class="text-center mb-5">
+    <button class="btn btn-warning" onclick="alert('¡Gracias por suscribirte a las alertas de shows!')">Suscribirme a alertas de shows</button>
+</div>
+
+<!-- Lista de albums en vivo -->
+
+<div class="d-flex align-items-center justify-content-center mt-5 mb-5 gap-5 flex-wrap">
+
+    <div>
+        <h4 class="text-white mb-4">Álbums en vivo</h4>
+        <div class="d-flex flex-column gap-4">
+
+            <div class="d-flex flex-column align-items-center text-center">
+                <span class="text-white fs-5 mb-2">Live at Budokan</span>
+                <img src="~/img/Live_Budokan.jpg" alt="Live at Budokan" style="width: 200px;" class="rounded">
+            </div>
+
+            <div class="d-flex flex-column align-items-center text-center">
+                <span class="text-white fs-5 mb-2">Live at Luna Park</span>
+                <img src="~/img/Live_LunaPark.jpg" alt="Live at Luna Park" style="width: 200px;" class="rounded">
+            </div>
+
+            <div class="d-flex flex-column align-items-center text-center">
+                <span class="text-white fs-5 mb-2">Live Scenes from New York</span>
+                <img src="~/img/Live_NY.jpg" alt="Live Scenes from New York" style="width: 200px;" class="rounded">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="live-image-wrapper">
+    <img src="~/img/DreamTheaterLivePic.jpg" alt="Dream Theater en vivo" class="img-fluid rounded live-image">
 </div>
