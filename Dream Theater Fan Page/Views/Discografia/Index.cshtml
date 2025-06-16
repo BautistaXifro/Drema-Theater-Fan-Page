@@ -2,11 +2,12 @@
     ViewData["Title"] = "Discografía";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model List<Dream_Theater_Fan_Page.Models.AlbumModel>
 
 <div class="container py-5 text-white">
     <h1 class="text-warning text-center">Discografía de Dream Theater</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
-        @foreach (var album in ViewBag.Albums)
+        @foreach (var album in Model)
         {
             <div class="col">
                 <div class="card h-100 bg-dark text-white">

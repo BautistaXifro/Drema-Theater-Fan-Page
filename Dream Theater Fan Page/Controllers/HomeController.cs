@@ -1,4 +1,5 @@
 using Dream_Theater_Fan_Page.Models;
+using Dream_Theater_Fan_Page.Models.CarritoCompras;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +7,11 @@ namespace Dream_Theater_Fan_Page.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DreamTheaterFanPageContext _DbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DreamTheaterFanPageContext _context)
         {
-            _logger = logger;
+            _DbContext = _context;
         }
 
         public IActionResult Index()
