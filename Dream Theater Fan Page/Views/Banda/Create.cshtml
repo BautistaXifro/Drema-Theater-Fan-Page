@@ -1,0 +1,113 @@
+﻿@model Dream_Theater_Fan_Page.Models.Banda
+
+@{
+    ViewData["Title"] = "Crear Banda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Crear Banda</h2>
+
+<form asp-action="Create" method="post" onsubmit="return prepararIntegrantesParaEnvio();">
+    <div class="form-group">
+        <label>Nombre de la Banda</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <hr />
+    <h4>Integrantes</h4>
+
+    <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#modalIntegrante">
+        Agregar Integrante
+    </button>
+
+    <ul class="list-group mb-3" id="listaIntegrantes">
+    </ul>
+
+    <div id="camposIntegrantes"></div>
+
+    <div class="modal fade" id="modalIntegrante" tabindex="-1" aria-labelledby="modalIntegranteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Integrante</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-2">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" id="inputNombre" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Instrumento</label>
+                        <input type="text" class="form-control" id="inputInstrumento" />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label>Biografía</label>
+                        <textarea class="form-control" id="inputBiografia"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="agregarIntegrante()">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Guardar Banda</button>
+</form>
+
+@section Scripts {
+    <script>
+        let integrantes = [];
+
+        function agregarIntegrante() {
+            const nombre = document.getElementById('inputNombre').value.trim();
+            const instrumento = document.getElementById('inputInstrumento').value.trim();
+            const biografia = document.getElementById('inputBiografia').value.trim();
+
+            if (!nombre || !instrumento || !biografia) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+
+            integrantes.push({ nombre, instrumento, biografia });
+            actualizarVistaIntegrantes();
+
+            // Limpiar campos
+            document.getElementById('inputNombre').value = '';
+            document.getElementById('inputInstrumento').value = '';
+            document.getElementById('inputBiografia').value = '';
+
+            // Cerrar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalIntegrante'));
+            modal.hide();
+        }
+
+        function actualizarVistaIntegrantes() {
+            const lista = document.getElementById('listaIntegrantes');
+            const campos = document.getElementById('camposIntegrantes');
+            lista.innerHTML = '';
+            campos.innerHTML = '';
+
+            integrantes.forEach((i, index) => {
+                lista.innerHTML += `
+                        <li class="list-group-item">
+                            <strong>${i.nombre}</strong> - ${i.instrumento}
+                            <br><em>${i.biografia}</em>
+                        </li>`;
+
+                campos.innerHTML += `
+                        <input type="hidden" name="integrantes[${index}].Nombre" value="${i.nombre}" />
+                        <input type="hidden" name="integrantes[${index}].Instrumento" value="${i.instrumento}" />
+                        <input type="hidden" name="integrantes[${index}].Biografia" value="${i.biografia}" />
+                    `;
+            });
+        }
+
+        function prepararIntegrantesParaEnvio() {
+            actualizarVistaIntegrantes(); // en caso de no haberlo hecho antes
+            return true;
+        }
+    </script>
+}

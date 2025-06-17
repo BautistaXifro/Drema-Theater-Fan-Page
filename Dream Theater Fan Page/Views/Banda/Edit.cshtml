@@ -1,0 +1,21 @@
+﻿@model Dream_Theater_Fan_Page.Models.Banda
+
+@{
+    ViewData["Title"] = "Editar Banda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Banda</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="BandaId" />
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre de la Banda</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

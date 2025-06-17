@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Dream_Theater_Fan_Page.Models.CarritoCompras.Producto>
+﻿@model IEnumerable<Dream_Theater_Fan_Page.Models.Producto>
 
 @{
     ViewData["Title"] = "Carrito de Compra";
@@ -24,8 +24,7 @@
             <td><img src="@item.Photo" width="120" /></td>
             <td>@item.Precio</td>
             <td>
-                <a class="btn btn-primary" href="/Carrito/Cart?id=@item.ProductoId">Comprar</a>
-                @*<a class="btn btn-primary" asp-controller="Carrito" asp-action="Cart" asp-route-id="@item.ProductoId">Comprar</a>*@
+                <a class="btn btn-primary" asp-controller="Carrito" asp-action="Cart" asp-route-id="@item.ProductoId">Comprar</a>
             </td>
         </tr>
     }

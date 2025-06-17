@@ -1,0 +1,36 @@
+﻿
+@model IEnumerable<Dream_Theater_Fan_Page.Models.Banda>
+
+@{
+    ViewData["Title"] = "Arma tu banda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 class="mt-4">Arma tu banda</h2>
+
+<div class="mb-3">
+    <a class="btn btn-success" asp-controller="Banda" asp-action="Create">Crear Nueva Banda</a>
+</div>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Nombre de la Banda</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var banda in Model)
+        {
+            <tr>
+                <td>@banda.Nombre</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@banda.BandaId">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@banda.BandaId">Eliminar</a>
+                    <a class="btn btn-info btn-sm" asp-action="Integrantes" asp-route-id="@banda.BandaId">Ver Integrantes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

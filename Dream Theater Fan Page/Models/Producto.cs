@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dream_Theater_Fan_Page.Models.CarritoCompras;
+namespace Dream_Theater_Fan_Page.Models;
 
 public partial class Producto
 {

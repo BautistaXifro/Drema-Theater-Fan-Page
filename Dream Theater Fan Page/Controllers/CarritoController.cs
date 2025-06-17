@@ -1,6 +1,5 @@
 ﻿using BuildShoppingCart.Helpers;
 using Dream_Theater_Fan_Page.Models;
-using Dream_Theater_Fan_Page.Models.CarritoCompras;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Dream_Theater_Fan_Page.Models.CarritoCompras.Item>
+﻿@model IEnumerable<Dream_Theater_Fan_Page.Models.Item>
 
 @{
     ViewData["Title"] = "Carrito de Compra Items";
@@ -20,8 +20,7 @@
     {
         <tr>
             <td>
-                <a class="btn btn-primary" href="/Carrito/Quitar?id=@item.Producto.ProductoId">Quitar</a>
-                @*<a class="btn btn-primary" asp-action="Quitar" asp-controller="Carrito" asp-route-id=@item.Producto.ProductoId>Quitar</a>*@
+                <a class="btn btn-primary" asp-action="Quitar" asp-controller="Carrito" asp-route-id=@item.Producto.ProductoId>Quitar</a>
             </td>
             <td>@item.Producto.ProductoId</td>
             <td>@item.Producto.Nombre</td>
@@ -38,5 +37,4 @@
     <label class="form-label"> @Model.Sum(i => i.Cantidad * i.Producto.Precio)</label>
 </div>
 <br />
-@* <a class="btn btn-info" asp-action="Index" asp-controller="Carrito">Volver</a>*@
-<a class="btn btn-info" href="/Carrito">Volver</a>
+<a class="btn btn-info" asp-action="Index" asp-controller="Carrito">Volver</a>
