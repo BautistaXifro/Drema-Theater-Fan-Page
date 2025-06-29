@@ -28,7 +28,7 @@
                 <td>
                     <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@banda.BandaId">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@banda.BandaId">Eliminar</a>
-                    <a class="btn btn-info btn-sm" asp-action="Integrantes" asp-route-id="@banda.BandaId">Ver Integrantes</a>
+                    <a class="btn btn-info btn-sm" asp-controller="Integrante" asp-action="Index" asp-route-bandaId="@banda.BandaId">Ver Integrantes</a>
                 </td>
             </tr>
         }

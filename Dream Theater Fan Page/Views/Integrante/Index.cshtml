@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Dream_Theater_Fan_Page.Models.Integrante>
+
+@{
+    ViewData["Title"] = "Integrantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Integrantes de la Banda</h2>
+
+<div class="mb-3">
+    <a class="btn btn-success" asp-action="Create" asp-route-bandaId="@ViewBag.BandaId">Agregar Integrante</a>
+    <a class="btn btn-secondary" asp-controller="Banda" asp-action="Index">Volver a Bandas</a>
+</div>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Instrumento</th>
+            <th>Biografía</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var integrante in Model)
+        {
+            <tr>
+                <td>@integrante.Nombre</td>
+                <td>@integrante.Instrumento</td>
+                <td>@integrante.Biografia</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@integrante.IntegranteId">Editar</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@integrante.IntegranteId">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
