@@ -70,10 +70,5 @@ namespace Dream_Theater_Fan_Page.Controllers
 
             return RedirectToAction("Index", new { bandaId });
         }
-
-        public IActionResult Terminar(int bandaId)
-        {
-            return RedirectToAction("Index", "Banda");
-        }
     }
 }

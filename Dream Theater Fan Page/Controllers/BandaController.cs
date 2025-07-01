@@ -6,17 +6,27 @@ namespace Dream_Theater_Fan_Page.Controllers
     public class BandaController : Controller
     {
         private readonly DreamTheaterFanPageContext _context;
-
+        private readonly string ImagenFilePath;
         public BandaController(DreamTheaterFanPageContext context)
         {
             _context = context;
+            ImagenFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var bandas = _context.Banda.ToList();
+            const int pageSize = 5;
+            var totalItems = _context.Banda.Count();
+
+            var pager = new Pager(totalItems, page, pageSize);
+
+            var bandas = _context.Banda.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.Pager = pager;
+
             return View(bandas);
         }
+
 
         public IActionResult Create()
         {
@@ -24,10 +34,26 @@ namespace Dream_Theater_Fan_Page.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Banda banda)
+        public IActionResult Create(Banda banda, IFormFile? PhotoFile)
         {
             if (ModelState.IsValid)
             {
+                if (PhotoFile != null && PhotoFile.Length > 0)
+                {
+                    if (!Directory.Exists(ImagenFilePath))
+                        Directory.CreateDirectory(ImagenFilePath);
+
+                    var mFileName = Guid.NewGuid() + Path.GetExtension(PhotoFile.FileName);
+                    var mPath = Path.Combine(ImagenFilePath, "img", "bandas",mFileName);
+
+                    using (var stream = new FileStream(mPath, FileMode.Create))
+                    {
+                        PhotoFile.CopyTo(stream);
+                    }
+
+                    banda.Photo = "/img/bandas/" + mFileName;
+                }
+
                 _context.Banda.Add(banda);
                 _context.SaveChanges();
 
@@ -38,21 +64,51 @@ namespace Dream_Theater_Fan_Page.Controllers
 
         public IActionResult Edit(int id)
         {
+
             var banda = _context.Banda.Find(id);
             if (banda == null) return NotFound();
             return View(banda);
         }
 
         [HttpPost]
-        public IActionResult Edit(Banda banda)
+        public IActionResult Edit(Banda banda , IFormFile? PhotoFile)
         {
             if (ModelState.IsValid)
             {
-                _context.Banda.Update(banda);
+                var bandaExistente = _context.Banda.Find(banda.BandaId);
+                if (bandaExistente == null) return NotFound();
+
+                bandaExistente.Nombre = banda.Nombre;
+
+                if (PhotoFile != null)
+                {
+                    // borrar imagen vieja
+                    if(bandaExistente.Photo != null)
+                    {
+                        string mPathExistente = Path.Combine(ImagenFilePath, bandaExistente.Photo.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                        if (!string.IsNullOrEmpty(mPathExistente))
+                        {
+                            if (System.IO.File.Exists(mPathExistente))
+                                System.IO.File.Delete(mPathExistente);
+                        }
+                    }
+
+                    string mFileName = Guid.NewGuid() + Path.GetExtension(PhotoFile.FileName);
+                    string mPath = Path.Combine(ImagenFilePath, "img", "bandas", mFileName);
+
+                    using (var stream = new FileStream(mPath, FileMode.Create))
+                    {
+                        PhotoFile.CopyTo(stream);
+                    }
+
+                    bandaExistente.Photo = "/img/bandas/" + mFileName;
+                }
+
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(banda);
+
         }
 
         public IActionResult Delete(int id)
@@ -66,6 +122,13 @@ namespace Dream_Theater_Fan_Page.Controllers
             if (integrantes.Any())
             {
                 _context.Integrantes.RemoveRange(integrantes);
+            }
+
+            if (!string.IsNullOrEmpty(banda.Photo))
+            {
+                string mPathExistente = Path.Combine(ImagenFilePath, banda.Photo.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                if (System.IO.File.Exists(mPathExistente))
+                    System.IO.File.Delete(mPathExistente);
             }
 
             _context.Banda.Remove(banda);

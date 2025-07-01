@@ -40,7 +40,6 @@ public partial class DreamTheaterFanPageContext : DbContext
             entity.HasKey(e => e.IntegranteId);
             entity.ToTable("Integrante");
 
-            //entity.Property(e => e.IntegranteId).ValueGeneratedNever();
             entity.Property(e => e.Biografia)
                 .HasMaxLength(250)
                 .IsUnicode(false);

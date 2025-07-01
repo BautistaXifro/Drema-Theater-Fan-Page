@@ -123,8 +123,6 @@ namespace Dream_Theater_Fan_Page.Controllers
                 }
             };
 
-            /*ViewBag.Albums = albums;
-            return View();*/
             return View(albums);
         }
     }

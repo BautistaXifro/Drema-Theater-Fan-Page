@@ -16,15 +16,30 @@ namespace Dream_Theater_Fan_Page.Controllers
         {
             _Context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchName = "", decimal? minPrice = null, decimal? maxPrice = null)
         {
-
             int cantidad = 0;
             var carrito = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             if (carrito != null) cantidad = carrito.Count();
+            ViewBag.Contar = cantidad;
 
-            @ViewBag.Contar = cantidad;
-            Products = _Context.Productos.ToList();
+            var productsQuery = _Context.Productos.AsQueryable();
+            // filtro por nombre
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                productsQuery = productsQuery.Where(p => p.Nombre.Contains(searchName));
+            }
+            // filtro por precio mínimo
+            if (minPrice != null)
+            {
+                productsQuery = productsQuery.Where(p => p.Precio >= minPrice.Value);
+            }
+            // filtro por precio máximo
+            if (maxPrice != null)
+            {
+                productsQuery = productsQuery.Where(p => p.Precio <= maxPrice.Value);
+            }
+            Products = productsQuery.ToList();
             return View(Products);
         }
 

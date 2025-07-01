@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\discografia\" />
+    <Folder Include="wwwroot\img\bandas\" />
   </ItemGroup>
 
   <ItemGroup>

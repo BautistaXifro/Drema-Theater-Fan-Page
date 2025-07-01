@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Arma tu banda";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var pager = ViewBag.Pager as Dream_Theater_Fan_Page.Models.Pager;
 
 }
 
@@ -26,11 +27,34 @@
             <tr>
                 <td>@banda.Nombre</td>
                 <td>
+                    @if (!string.IsNullOrEmpty(banda.Photo))
+                    {
+                        <img src="@banda.Photo" width="100" class="rounded" />
+                    }
+                    else
+                    {
+                        <span>Sin Foto</span>
+                    }
+                </td>
+                <td>
                     <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@banda.BandaId">Editar</a>
                     <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@banda.BandaId">Eliminar</a>
                     <a class="btn btn-info btn-sm" asp-controller="Integrante" asp-action="Index" asp-route-bandaId="@banda.BandaId">Ver Integrantes</a>
                 </td>
             </tr>
+        }
+        @if (pager != null && pager.TotalPages > 1)
+        {
+            <nav>
+                <ul class="pagination justify-content-center">
+                    @for (int i = pager.StartPage; i <= pager.EndPage; i++)
+                    {
+                        <li class="page-item @(i == pager.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
         }
     </tbody>
 </table>
